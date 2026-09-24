@@ -48,9 +48,11 @@ DLStreamer_Version="N/A"
 OpenVINO_Version="N/A"
 if command -v docker >/dev/null 2>&1; then
     if docker images | grep -q "intel/dlstreamer"; then
-        _apt_list=$(docker run --rm --init intel/dlstreamer:2026.2.0-ubuntu24 apt list 2>/dev/null || true)
-        DLStreamer_Version=$(echo "${_apt_list}" | grep -E "dlstreamer|gstreamer" | head -n1 | awk '{print $2}' || echo "latest")
-        OpenVINO_Version=$(echo "${_apt_list}" | grep openvino | head -n1 | awk '{print $2}' | cut -d. -f1-3 || echo "N/A")
+        _apt_list=$(docker run --rm --init intel/dlstreamer:2026.2.0-ubuntu24 apt list --installed 2>/dev/null || true)
+        # Anchor to the actual package name — a bare "gstreamer" match picks up
+        # unrelated gstreamer1.0-* plugin packages that sort before it alphabetically.
+        DLStreamer_Version=$(echo "${_apt_list}" | grep -E "^intel-dlstreamer/" | head -n1 | awk '{print $2}' || echo "latest")
+        OpenVINO_Version=$(echo "${_apt_list}" | grep -E "^openvino" | head -n1 | awk '{print $2}' | cut -d. -f1-3 || echo "N/A")
         unset _apt_list
     fi
 fi
