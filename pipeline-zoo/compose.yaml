@@ -19,7 +19,7 @@
 services:
   # ── Asset Download Service (models + video) ───────────────────────────────
   assets-download:
-    image: ${DLSTREAMER_IMAGE:-intel/dlstreamer:2026.1.0-20260505-weekly-ubuntu24}
+    image: ${DLSTREAMER_IMAGE:-intel/dlstreamer:2026.2.0-ubuntu24}
     container_name: pipeline-zoo-assets
     entrypoint: ["tail", "-f", "/dev/null"]
     user: "0:0"
@@ -41,7 +41,7 @@ services:
 
   # ── DL Streamer Pipeline Server ───────────────────────────────────────────
   pipeline-server:
-    image: ${PIPELINE_SERVER_IMAGE:-intel/dlstreamer-pipeline-server:2026.1.0-20260505-weekly-ubuntu24}
+    image: ${PIPELINE_SERVER_IMAGE:-intel/dlstreamer-pipeline-server:2026.2.0-ubuntu24}
     container_name: pipeline-zoo-server
     read_only: true
     security_opt:

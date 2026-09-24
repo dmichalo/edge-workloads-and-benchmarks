@@ -128,7 +128,7 @@ usage: pipeline-zoo [-h] [--list] [--cleanup] [--dry-run] [--params-file PATH]
 | `--num-instances N` | Number of concurrent pipeline instances (default: 2) |
 | `--duration S` | Monitoring duration in seconds (default: 120) |
 | `--port PORT` | Pipeline Server REST API port (default: 8080) |
-| `--image IMAGE` | Pipeline Server Docker image (default: `intel/dlstreamer-pipeline-server:2026.1.0-20260505-weekly-ubuntu24`) |
+| `--image IMAGE` | Pipeline Server Docker image (default: `intel/dlstreamer-pipeline-server:2026.2.0-ubuntu24`) |
 | `--save-config [PATH]` | Save the generated `config.json` to a file (default: `config_{name}.json`) |
 | `--detection-model ID` | Override detection model asset (e.g. `Ultralytics/yolov11n`) |
 | `--classification-model-0 ID` | Override first classification model asset |
@@ -221,8 +221,8 @@ Centralizes all path and image constants:
 | `PIPE_ROOT` | `/home/pipeline-server/pipelines` | In-container mount point for assets |
 | `ASSETS_DIR` | `./assets` | Host-side shared volume |
 | `COMPOSE_FILE` | `./compose.yaml` | Docker Compose file |
-| `DEFAULT_IMAGE` | `intel/dlstreamer-pipeline-server:2026.1.0-…` | Pipeline Server image |
-| `DLSTREAMER_IMAGE` | `intel/dlstreamer:2026.1.0-…` | Assets-download image |
+| `DEFAULT_IMAGE` | `intel/dlstreamer-pipeline-server:2026.2.0-…` | Pipeline Server image |
+| `DLSTREAMER_IMAGE` | `intel/dlstreamer:2026.2.0-…` | Assets-download image |
 | `REST_PORT` | `8080` | Pipeline Server REST API |
 | `RTSP_PORT` | `8554` | Pipeline Server RTSP output |
 
@@ -529,7 +529,7 @@ When you run a pipeline, the tool performs these steps:
 ### Docker Compose Services
 
 #### assets-download (profile: `download`)
-- Image: `intel/dlstreamer:2026.1.0-20260505-weekly-ubuntu24`
+- Image: `intel/dlstreamer:2026.2.0-ubuntu24`
 - Runs as root (UID 0) — needed for model conversion and video transcoding
 - Kept alive with `tail -f /dev/null`; conversion scripts run via `docker exec`
 - Volumes: `./assets:/output` (write), `model-cache:/cache`, `../tools/model-conversion:/model-conversion:ro`
@@ -537,7 +537,7 @@ When you run a pipeline, the tool performs these steps:
 - Started on-demand when assets are missing; stopped after download
 
 #### pipeline-server (profile: `pipeline`)
-- Image: `intel/dlstreamer-pipeline-server:2026.1.0-20260505-weekly-ubuntu24`
+- Image: `intel/dlstreamer-pipeline-server:2026.2.0-ubuntu24`
 - Runs as UID 1999 with `--read-only` filesystem and `no-new-privileges`
 - Volume: `./assets:/home/pipeline-server/pipelines:ro` (read-only)
 - Config: temp file mounted at `/home/pipeline-server/config.json:ro`
@@ -613,5 +613,5 @@ python-on-whales>=0.70
 - Docker Engine with Docker Compose v2
 - Intel GPU with VA-API support (`/dev/dri`)
 - Optional: Intel NPU (`/dev/accel`) for `gpu_npu` device mode
-- `intel/dlstreamer-pipeline-server:2026.1.0-20260505-weekly-ubuntu24` Docker image (pulled automatically)
-- `intel/dlstreamer:2026.1.0-20260505-weekly-ubuntu24` Docker image (for model conversion and video transcoding)
+- `intel/dlstreamer-pipeline-server:2026.2.0-ubuntu24` Docker image (pulled automatically)
+- `intel/dlstreamer:2026.2.0-ubuntu24` Docker image (for model conversion and video transcoding)

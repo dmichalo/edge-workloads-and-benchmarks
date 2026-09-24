@@ -12,10 +12,10 @@ PROJECT_ROOT = ZOO_DIR.parent
 PIPE_ROOT = "/home/pipeline-server/pipelines"
 
 # Default Pipeline Server image
-DEFAULT_IMAGE = "intel/dlstreamer-pipeline-server:2026.1.0-20260505-weekly-ubuntu24"
+DEFAULT_IMAGE = "intel/dlstreamer-pipeline-server:2026.2.0-ubuntu24"
 
 # Default DL Streamer image (asset downloads: model conversion + video transcode)
-DLSTREAMER_IMAGE = "intel/dlstreamer:2026.1.0-20260505-weekly-ubuntu24"
+DLSTREAMER_IMAGE = "intel/dlstreamer:2026.2.0-ubuntu24"
 
 # REST API
 REST_PORT = 8080

@@ -211,7 +211,7 @@ echo ""
 echo "[ Info ] Pipeline: ${Pipeline}"
 echo ""
 
-ThisDockerCommand=("${DockerCommand[@]}" --name "${ContainerName}" intel/dlstreamer:2026.1.0-20260505-weekly-ubuntu24)
+ThisDockerCommand=("${DockerCommand[@]}" --name "${ContainerName}" intel/dlstreamer:2026.2.0-ubuntu24)
 
 sleep 1
 # shellcheck disable=SC2086,SC2090
